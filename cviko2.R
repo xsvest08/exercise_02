@@ -36,10 +36,36 @@ findseq
 
 #####################################################################################
 ##TASK3 
+install.packages("readxl")
+library("readxl")
 
-path -> "c/Users/emikb/Desktop/1.semestr - Ing/Programming in Bioinformatics (PRG)/cviko2/exercise_02/fishes.fna.gz"
-fun_demultiplex <- function(path, forward, reverse, names) {
+#path <- "c/Users/emikb/Desktop/1.semestr_Ing/Programming_in_Bioinformatics/cviko2/exercise_02/fishes.fna.gz"
+path <- read.fasta("fishes.fna.gz")
+path <- readDNAStringSet("fishes.fna.gz")
+data <- read_excel("fishes_MIDs.xls")
+
+forward <- data$`F BarcodeSequence`
+reverse <- data$`R BarcodeSequence`
+names <- data$Description
+
+#fun_demultiplex <- function(path, forward, reverse, names) {
+for(i in 1:18){
+  char_for <- paste0("^",forward[i],".*",reverseComplement(DNAString(reverse[i])),"$")
+  char_res <- paste0("^",reverse[i],".*",reverseComplement(DNAString(forward[i])),"$")
   
+  finddata1 <- grep(char_for, path, perl=TRUE)
+  finddata2 <- grep(char_res, path, perl=TRUE)
+   
+  i <- i+1
+  
+
 }
+for(j in finddata1){
+  seq_data <- path[j]
+  j <- j + 1
+}
+#}
+#pak funkce subseq
+
 
 
